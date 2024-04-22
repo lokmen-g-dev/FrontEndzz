@@ -50,8 +50,12 @@ const Author = ({ trainers = [] }) => {
                             
                             <h5>{trainer.name}</h5>
                             <span>{trainer.formation}</span>
-                            <p>{desc}</p>
                            
+                            <p>
+    {trainer.experience && trainer.experience.split('\n').map((block, index) => (
+        <span key={index}>{block}<br /></span>
+    ))}
+</p>
                         </div>
                     </div>
                 ))

@@ -11,8 +11,7 @@ import myContext from "./component/ContextUser/Context" ;
 import ScrollToTop from "./component/layout/ScrollToTop";
 import ErrorPage from "./component/page/404";
 import AboutPage from "./component/page/about";
-import BlogPage from "./component/page/blog";
-import BlogSingle from "./component/page/blog-single";
+
 import CartPage from "./component/page/cart-page";
 import ContactPage from "./component/page/contact";
 
@@ -25,7 +24,7 @@ import SearchPage from "./component/page/search-page";
 import ShopPage from "./component/page/shop";
 import ShopDetails from "./component/page/shop-single";
 
-import TeamPage from "./component/page/team";
+
 import TeamSingle from "./component/page/team-single";
 import Header from "./component/layout/header";
 import Footer from "./component/layout/footer";
@@ -40,7 +39,10 @@ const Home=lazy(async()=>import("./component/page/home"));
 const CoursePage=lazy(async()=>import("./component/page/course"));
 const CourseSingle=lazy(async()=>import("./component/page/course-single"));
 const ForgetPass = lazy(async () => import("./component/page/forgetpass"));
-
+const SessionPriveePage=lazy(async()=>import("./component/page/session-privée"));
+const BlogPage = lazy(async () => import("./component/page/blog"));
+const BlogSingle = lazy(async () => import("./component/page/blog-single"));
+const TeamPage = lazy(async () => import("./component/page/team"));
 function App() {
 	//créatin d'un contexte pur connaitre s'il ya un user connecté ou non:
 
@@ -156,9 +158,10 @@ function App() {
                 <Route path="course" element={<CoursePage />} />
                 <Route path="/course/:id" element={<CourseSingle />} />
                 <Route path="blog" element={<BlogPage />} />
-                <Route path="blog-single" element={<BlogSingle />} />
+                <Route path="/blog/:id" element={<BlogSingle />} />
                 <Route path="about" element={<AboutPage />} />
                 <Route path="team" element={<TeamPage />} />
+                <Route path="session" element={<SessionPriveePage />} />
                 <Route path="team-single" element={<TeamSingle />} />
                 <Route path="instructor" element={<InstructorPage />} />
                 <Route path="shop" element={<ShopPage />} />

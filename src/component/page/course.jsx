@@ -1,20 +1,15 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-// import Footer from "../layout/footer";
-// import Header from "../layout/header";
 import GroupSelect from "../sidebar/group-select";
 import Pagination from "../sidebar/pagination";
 import Rating from "../sidebar/rating";
-import SkillSelect from "../sidebar/skill-select";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const CoursePage = () => {
   const [courseList, setCourseList] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [filteredCourseList, setFilteredCourseList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -23,7 +18,6 @@ const CoursePage = () => {
           "http://localhost:4000/courses/getCourses"
         );
         setCourseList(response.data);
-        setFilteredCourseList(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching courses:", error);
@@ -31,46 +25,20 @@ const CoursePage = () => {
       }
     };
 
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:4000/categorys/getCategorys"
-        );
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
     fetchCourses();
-    fetchCategories();
   }, []);
 
-  const handleCategoryChange = (e) => {
-   
-    const selectedCategoryId = e.target.value;
-    if (selectedCategoryId === "all") {
-      setFilteredCourseList(courseList);
-    } else {
-      const filteredCourses = courseList.filter((course) => {
-        return course.categorys.some(
-          (category) => category._id === selectedCategoryId
-        );
-      });
-      setFilteredCourseList(filteredCourses);
-    }
-   
-  };
-  const navigateToCourse = (courseId) => {
-    navigate(`/course/${courseId}`);
-  };
+  
+  
   useEffect(() => {
     document.title = "Arzaak-Cours";
   }, []);
-
+  
+  
   return (
+    
     <Fragment>
-      {/* <Header /> */}
+      
       <br />
       <br />
       <br />
@@ -91,36 +59,7 @@ const CoursePage = () => {
                       <Skeleton width={200} height={25} className="mt-2" />
                     </SkeletonTheme>
                   ) : (
-                    <p>Affichage de {filteredCourseList.length} cours</p>
-                  )}
-                </div>
-                <div className="course-showing-part-right d-flex flex-wrap align-items-center">
-                  {loading && (
-                    <SkeletonTheme
-                      color="#f0f0f0"
-                      highlightColor="#e0e0e0"
-                      borderRadius="0.5rem"
-                    >
-                      <Skeleton width={250} height={35} className="mt-2" />
-                    </SkeletonTheme>
-                  )}
-                  {!loading && (
-                    <>
-                      <span>Trier par :</span>
-                      <div className="select-item">
-                        <select onChange={handleCategoryChange}>
-                          <option value="all">Tous</option>
-                          {categories.map((category, index) => (
-                            <option key={index} value={category._id}>
-                              {category.name}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="select-icon">
-                          <i className="icofont-rounded-down"></i>
-                        </div>
-                      </div>
-                    </>
+                    <p>Affichage de {courseList.length} cours</p>
                   )}
                 </div>
               </div>
@@ -129,56 +68,54 @@ const CoursePage = () => {
               {loading &&
                 Array.from({ length: 6 }).map((el, i) => {
                   return (
-                    <>
-                      <div className="col" key={i}>
-                        <div className="course-item course-item-static">
-                          <div className="course-inner">
-                            <div className="course-thumb">
+                    <div className="col" key={i}>
+                      <div className="course-item course-item-static">
+                        <div className="course-inner">
+                          <div className="course-thumb">
+                            <SkeletonTheme borderRadius="0.5rem">
+                              <Skeleton
+                                width={300}
+                                height={300}
+                                className="mt-2"
+                              />
+                            </SkeletonTheme>
+                          </div>
+                          <div className="course-content">
+                            <div className="course-price">
                               <SkeletonTheme borderRadius="0.5rem">
                                 <Skeleton
-                                  width={300}
-                                  height={300}
+                                  width={30}
+                                  height={10}
                                   className="mt-2"
                                 />
                               </SkeletonTheme>
                             </div>
-                            <div className="course-content">
-                              <div className="course-price">
-                                <SkeletonTheme borderRadius="0.5rem">
-                                  <Skeleton
-                                    width={30}
-                                    height={10}
-                                    className="mt-2"
-                                  />
-                                </SkeletonTheme>
-                              </div>
-                              <div className="course-category">
-                                <SkeletonTheme borderRadius="0.5rem">
-                                  <Skeleton
-                                    width={230}
-                                    height={30}
-                                    count={3}
-                                    className="mt-2"
-                                  />
-                                </SkeletonTheme>
-                                <SkeletonTheme borderRadius="0.5rem">
-                                  <Skeleton
-                                    width={150}
-                                    height={18}
-                                    className="mt-4"
-                                  />
-                                </SkeletonTheme>
-                              </div>
+                            <div className="course-category">
+                              <SkeletonTheme borderRadius="0.5rem">
+                                <Skeleton
+                                  width={230}
+                                  height={30}
+                                  count={3}
+                                  className="mt-2"
+                                />
+                              </SkeletonTheme>
+                              <SkeletonTheme borderRadius="0.5rem">
+                                <Skeleton
+                                  width={150}
+                                  height={18}
+                                  className="mt-4"
+                                />
+                              </SkeletonTheme>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </>
+                    </div>
                   );
                 })}
               {!loading &&
-                filteredCourseList.map((val, i) => (
-                  <div className="col" key={i}>
+                courseList.map((val) => (
+                  <div className="col" key={val._id}>
                     <div className="course-item course-item-static">
                       <div className="course-inner">
                         <div className="course-thumb">
@@ -196,25 +133,24 @@ const CoursePage = () => {
                                 <a href="#">{category.name}</a>
                               </div>
                             ))}
-                            <div className="course-reiew">
-                              <Rating />
-                              <span className="ratting-count">03 avis</span>
+                            <div className="course-review">
+                             
                             </div>
                           </div>
-                          <Link to="/course-single">
+                          <Link to={`/course/${val._id}`}>
                             <h4>{val.title}</h4>
                           </Link>
                           <div className="course-details">
-                            <div className="couse-count">
+                            <div className="course-count">
                               <i className="icofont-video-alt"></i>{" "}
                               {val.modules.reduce(
-                                (total, module) => total + module.lecons.length,
+                                (total, module) =>
+                                  total + module.lecons.length,
                                 0
                               )}{" "}
                               leçons
                             </div>
-
-                            <div className="couse-topic">
+                            <div className="course-topic">
                               <i className="icofont-signal"></i>Cours en ligne
                             </div>
                           </div>
@@ -224,17 +160,17 @@ const CoursePage = () => {
                                 {trainer.image ? (
                                   <img
                                     src={`http://localhost:4000/uploads/trainer/${trainer.image}`}
-                                    style={{ width: "45px", height: "45px" }}
+                                    style={{ width: "40px", height: "40px", borderRadius: "100%" }}
                                     alt={trainer.name}
                                   />
                                 ) : (
                                   <img
                                     src="http://localhost:4000/uploads/profiles/ProfileFemale.png"
-                                    style={{ width: "45px", height: "45px" }}
+                                    style={{ width: "40px", height: "40px" }}
                                     alt="Profile"
                                   />
                                 )}
-                                <Link to="/team-single" className="ca-name">
+                                <Link to="/team-single" className="ca-name" style={{ fontSize: "15px" }}>
                                   {trainer.name}
                                 </Link>
                               </div>

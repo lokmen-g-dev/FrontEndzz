@@ -62,7 +62,7 @@ const Student = () => {
                                             <p>{val.desc2}</p>
                                         </div>
                                         <div className="text-center mt-5">
-            <Link to="/team" className="lab-btn"><span>{btnText}</span></Link>
+            <Link to="/session" className="lab-btn"><span>{btnText}</span></Link>
             <br></br>
           </div>
                                     </div>

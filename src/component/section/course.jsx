@@ -129,9 +129,9 @@ const Course = () => {
                                 <div className="course-item">
                                     <div className="course-inner">
                                         <div className="course-thumb">
-                                        <img src={`http://localhost:4000/uploads/courses/${val.image}`} 
+                                        <Link to={`/course/${val._id}`}>  <img src={`http://localhost:4000/uploads/courses/${val.image}`} 
                                         style={{ width: "450px", height: "230px" }}/>
-
+ </Link>
                                         </div>
                                         <div className="course-content">
                                             <div className="course-price">{val.price} dt</div>
@@ -168,7 +168,7 @@ const Course = () => {
                                 {trainer.image ? (
                                   <img
                                     src={`http://localhost:4000/uploads/trainer/${trainer.image}`}
-                                    style={{ width: "40px", height: "40px" }}
+                                    style={{ width: "40px", height: "40px", borderRadius: "100%" }}
                                     alt={trainer.name}
                                   />
                                 ) : (
@@ -178,7 +178,7 @@ const Course = () => {
                                     alt="Profile"
                                   />
                                 )}
-                                <Link to="/team-single" className="ca-name">
+                                <Link to="/team-single" className="ca-name" style={{ fontSize: "15px" }}>
                                   {trainer.name}
                                 </Link>
                               </div>

@@ -4,7 +4,7 @@ import Pagination from "../sidebar/pagination";
 import axios from "axios";
 
 const BlogPage = () => {
-  // Déplacez useState et useEffect à l'intérieur du composant BlogPage
+ 
   const [blogList, setBlogList] = useState([]);
 
   useEffect(() => {
@@ -20,10 +20,19 @@ const BlogPage = () => {
 
     fetchBlogs();
   }, []);
-
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  
+    hour12: false,
+  };
+  useEffect(() => {
+    document.title = "Arzaak-Blog";
+},[]);
   return ( 
     <Fragment>
-      <br />
+   
       <br />
       <br />
       <br />
@@ -40,25 +49,27 @@ const BlogPage = () => {
                   <div className="post-item">
                     <div className="post-inner">
                       <div className="post-thumb">
-                        <Link to="/blog-single"><img  src={`http://localhost:4000/uploads/blog/${val.image}`} alt={`${val.imgAlt}`} /></Link>
+                        <Link to={`/blog/${val._id}`}><img  src={`http://localhost:4000/uploads/blog/${val.image}`} alt={`${val.imgAlt}`} /></Link>
                       </div>
                       <div className="post-content">
-                        <Link to="/blog-single"><h4>{val.titre}</h4></Link>
+                        <Link to={`/blog/${val._id}`}><h4>{val.titre}</h4></Link>
                         <div className="meta-post">
                         <ul className="lab-ul">
  
-    <li><i className={'icofont-calendar'}></i>{val.dateCreation}</li>
- 
+    <li><i className={'icofont-calendar'}></i>{new Intl.DateTimeFormat("fr-FR", options).format(
+                      new Date( val.dateCreation)
+                    )}</li>
+    
 </ul>
 
                         </div>
-                        <p>{val.contenu}</p>
+                        <p>{val.sousTitre}</p>
                       </div>
                       <div className="post-footer">
                         <div className="pf-left">
-                          <Link to="/blog-single" className="lab-btn-text"> En savoir plus{" "} <i className="icofont-external-link"></i></Link>
+                          <Link to={`/blog/${val._id}`} className="lab-btn-text"> En savoir plus{" "} <i className="icofont-external-link"></i></Link>
                         </div>
-                       
+                        
                       </div>
                     </div>
                   </div>

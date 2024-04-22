@@ -33,6 +33,7 @@ const CourseSingle = () => {
           fetchCourse();
         }, [id]);
     const { title } = course;
+    const { sousTitre } = course;
     const { description } = course;
     const { image } = course;
     const { infoSessionUrl } = course;
@@ -57,7 +58,7 @@ const CourseSingle = () => {
     <Fragment>
       <PageHeaderTwo
         title={title}
-        description={description}
+        sousTitre={sousTitre}
         image={image}
         infoSessionUrl={infoSessionUrl}
         price={price}
@@ -74,15 +75,18 @@ const CourseSingle = () => {
                   <div className="course-inner">
                     <div className="course-content">
                       <h3>À propos du cours</h3>
-                      <p>{description}</p>
+                      <p>
+    {course.description && course.description.split('\n').map((block, index) => (
+        <span key={index}>{block}<br /></span>
+    ))}
+</p>
+
                       <h4>Ce que vous apprendrez dans ce cours:</h4>
                       <ul className="lab-ul">
-                        <li><i className="icofont-tick-mark"></i>Ready to begin working on real-world data modeling projects</li>
-                        <li><i className="icofont-tick-mark"></i>Expanded responsibilities as part of an existing role</li>
-                        <li><i className="icofont-tick-mark"></i>Be able to create Flyers, Brochures, Advertisements</li>
-                        <li><i className="icofont-tick-mark"></i>Find a new position involving data modeling.</li>
-                        <li><i className="icofont-tick-mark"></i>Work with color and Gradients and Grids</li>
-                      </ul>
+    {course.apprendreCours && course.apprendreCours.split('\n').map((block, index) => (
+        <li key={index}><i className="icofont-tick-mark"></i>{block}</li>
+    ))}
+</ul>
                     </div>
                   </div>
                 </div>

@@ -1,148 +1,174 @@
-import { Fragment } from "react";
-import Footer from "../layout/footer";
-import Header from "../layout/header";
-import PageHeader from "../layout/pageheader";
-import Archive from "../sidebar/archive";
-import Author from "../sidebar/author";
-import Comment from "../sidebar/comment";
-import Instagram from "../sidebar/instagram";
+import React, { Component, Fragment, useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import PopularPost from "../sidebar/popular-post";
-import PostCategory from "../sidebar/post-category";
-import Respond from "../sidebar/respond";
+
 import Search from "../sidebar/search";
 import Tags from "../sidebar/tags";
-
-
 const socialList = [
-    {
-        link: '#',
-        iconName: 'icofont-facebook',
-        className: 'facebook',
-    },
-    {
-        link: '#',
-        iconName: 'icofont-twitter',
-        className: 'twitter',
-    },
-    {
-        link: '#',
-        iconName: 'icofont-linkedin',
-        className: 'linkedin',
-    },
-    {
-        link: '#',
-        iconName: 'icofont-instagram',
-        className: 'instagram',
-    },
-    {
-        link: '#',
-        iconName: 'icofont-pinterest',
-        className: 'pinterest',
-    },
-]
-
-
- 
-
+  {
+    link: "#",
+    iconName: "icofont-facebook",
+    className: "facebook",
+  },
+  {
+    link: "#",
+    iconName: "icofont-linkedin",
+    className: "linkedin",
+  },
+];
 const BlogSingle = () => {
-    return (
-        <Fragment>
-            <Header />
-            <PageHeader title={'Interactively Morph High Standards Anding'} curPage={'Blog Detais'} />
-            <div className="blog-section blog-single padding-tb section-bg">
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-lg-8 col-12">
-                            <article>
-                                <div className="section-wrapper">
-                                    <div className="row row-cols-1 justify-content-center g-4">
-                                        <div className="col">
-                                            <div className="post-item style-2">
-                                                <div className="post-inner">
-                                                    <div className="post-thumb">
-                                                        <img src="assets/images/blog/single/01.jpg" alt="blog thumb rajibraj91" className="w-100" />
-                                                    </div>
-                                                    <div className="post-content">
-                                                        <h2>Interactively Morph High Standards Anding</h2>
-                                                        <div className="meta-post">
-                                                            <ul className="lab-ul">
-                                                                <li><a href="#"><i className="icofont-calendar"></i>April 23,2021</a></li>
-                                                                <li><a href="#"><i className="icofont-ui-user"></i>Rajib Raj</a></li>
-                                                                <li><a href="#"><i className="icofont-speech-comments"></i>09 Comments</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <p>Serenity hasir taken poseson mying entre soung these sweet morngs sprng whch enoywith whole heart create am alones and feel the charm of exstenceth spot whch the blissouls like mineing am soo happy my dearsi frend absoribed the exquste sense enjoy my whole hearts alone and fee the charm of exstenceths spotsi whch was the blis of soulis mineing amsoing dear frend soingu absoribed the exqust sense tranqui existence neglect my talentsr should ncapable ofing is drawng singe wonderful serenty has taken possesison of my entre soulng these sweet present moment and yet feel that never was greater artst</p>
+  const { id } = useParams();
+  const [blog, setBlog] = useState({});
+  const navigate = useNavigate();
+  const [prevArticleId, setPrevArticleId] = useState(null);
+  const [nextArticleId, setNextArticleId] = useState(null);
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/blog/blog/${id}`
+        );
+        setBlog(response.data);
+        console.log(response.data);
 
-                                                        <blockquote>
-                                                            <p>Dynamically recaptiualize distributed technologies is wherease turnkey channels and onotonectally provide access to resource leveling expertise vias worldwide deliverables uolisticly extend aserser are diverse vortals. </p>
-                                                            <cite><a href="#">...Melissa Hunter</a></cite>
-                                                        </blockquote>
+        const { prevId, nextId } = response.data;
+        setPrevArticleId(prevId);
+        setNextArticleId(nextId);
+      } catch (error) {
+        console.error("Error fetching Blog:", error);
+      }
+    };
+    fetchBlog();
+  }, [id, navigate]);
+  useEffect(() => {
+    document.title = "Arzaak-Détail Blog";
+  }, []);
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour12: false,
+  };
+  return (
+    <Fragment>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className="blog-section blog-single padding-tb section-bg">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8 col-12">
+              <article>
+                <div className="section-wrapper">
+                  <div className="row row-cols-1 justify-content-center g-4">
+                    <div className="col">
+                      <div className="post-item style-2">
+                        <div className="post-inner">
+                          <div className="post-thumb">
+                            <img
+                              src={`http://localhost:4000/uploads/blog/${blog.blog?.image}`}
+                              alt={`${blog.imgAlt}`}
+                              className="w-100"
+                            />
+                          </div>
+                          <div className="post-content">
+                            <h2>{blog.blog && blog.blog.titre}</h2>
 
-                                                        <p>whole heart create am alones and feel the charm of exstenceth spot whch the blissouls like mineing am soo happy my dearsi frend absoribed the exquste sense enjoy my whole hearts alone and fee the charm of exstenceths spotsi whch was the blis of soulis mineing amsoing dear frend soingu absoribed the exqust sense tranqui existence neglect my talentsr should ncapable ofing is drawng singe wonderful serenty has taken possesison of my entre soulng these sweet present moment and yet feel that never was greater artst</p>
+                            <div className="meta-post">
+                              <ul className="lab-ul">
+                                <li>
+                                  <a href="#">
+                                    <i className="icofont-calendar"></i>
+                                    {blog.blog && blog.blog.dateCreation}
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                            <p>{blog.sousTitre}</p>
+                            <blockquote>
+                              <p>
+                                Dynamically recaptiualize distributed
+                                technologies is wherease turnkey channels and
+                                onotonectally provide access to resource
+                                leveling expertise vias worldwide deliverables
+                                uolisticly extend aserser are diverse vortals.{" "}
+                              </p>
+                              <cite>
+                                <a href="#">...Melissa Hunter</a>
+                              </cite>
+                            </blockquote>
 
-                                                        <img src="assets/images/blog/single/02.jpg" alt="rajibraj91" />
+                            <p>
+                              {blog.blog &&
+                                blog.blog.contenu
+                                  .split("\n")
+                                  .map((block, index) => (
+                                    <span key={index}>
+                                      {block}
+                                      <br />
+                                    </span>
+                                  ))}
+                            </p>
 
-                                                        <p>Serenity hasir taken poseson mying entre soung these sweet morngs sprng whch enoywith whole heart create am alones and feel the charm of exstenceth spot whch the blissouls like mineing am soo happy my dearsi frend absoribed the exquste sense enjoy my whole hearts alone and fee the charm of exstenceths spotsi whch was the blis of soulis mineing amsoing dear frend soingu absoribed the exqust sense tranqui existence neglect my talentsr should ncapable ofing is drawng singe wonderful serenty has taken possesison of my entre soulng these sweet present moment and yet feel that never was greater artst</p>
-
-                                                        <div className="video-thumb">
-                                                            <img src="assets/images/blog/single/03.jpg" alt="video" />
-                                                            <a href="https://www.youtube-nocookie.com/embed/jP649ZHA8Tg" className="video-button popup" target="_blank"><i className="icofont-ui-play"></i></a>
-                                                        </div>
-
-                                                        <p>whole heart create am alones and feel the charm of exstenceth spot whch the blissouls like mineing am soo happy my dearsi frend absoribed the exquste sense enjoy my whole hearts alone and fee the charm of exstenceths spotsi whch was the blis of soulis mineing amsoing dear frend soingu absoribed the exqust sense tranqui existence neglect my talentsr should ncapable ofing is drawng singe wonderful serenty has taken possesison of my entre soulng these sweet present moment and yet feel that never was greater artst</p>
-
-                                                        <div className="tags-section">
-                                                            <ul className="tags lab-ul">
-                                                                <li><a href="#">Agency</a></li>
-                                                                <li><a href="#">Business</a></li>
-                                                                <li><a href="#">Personal</a></li>
-                                                            </ul>
-                                                            <ul className="lab-ul social-icons">
-                                                                {socialList.map((val, i) => (
-                                                                    <li key={i}>
-                                                                        <a href={val.link} className={val.className}><i className={val.iconName}></i></a>
-                                                                    </li>
-                                                                ))}
-                                                            </ul> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="navigations-part">
-                                                <div className="left">
-                                                    <a href="#" className="prev"><i className="icofont-double-left"></i>Previous Article</a>
-                                                    <a href="#" className="title">Evisculate Parallel Processes via Technica Sound Models Authoritative</a>
-                                                </div>
-                                                <div className="right">
-                                                    <a href="#" className="prev">Next Article<i className="icofont-double-right"></i></a>
-                                                    <a href="#" className="title">Qvisculate Parallel Processes via Technica Sound Models Authoritative</a>
-                                                </div>
-                                            </div>
-                                            <Author />
-                                            <Comment />
-                                            <Respond />
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
+                            <div className="tags-section">
+                              <a href="#">Partager cet article : </a>
+                              <ul className="lab-ul social-icons">
+                                {socialList.map((val, i) => (
+                                  <li key={i}>
+                                    <a
+                                      href={val.link}
+                                      className={val.className}
+                                    >
+                                      <i className={val.iconName}></i>
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
                         </div>
-                        <div className="col-lg-4 col-12">
-                            <aside>
-                                <Search />
-                                <PostCategory />
-                                <PopularPost />
-                                <Archive />
-                                <Instagram />
-                                <Tags />
-                            </aside>
-                        </div>
+                      </div>
+                      <div className="navigations-part">
+                        {prevArticleId !== null && (
+                          <div className="left">
+                            <a href={`/blog/${prevArticleId}`} className="prev">
+                              <i className="icofont-double-left"></i>Article
+                              précédent
+                            </a>
+                          </div>
+                        )}
+                        {nextArticleId !== null && (
+                          <div className="right">
+                            <a href={`/blog/${nextArticleId}`} className="next">
+                              Article suivant
+                              <i className="icofont-double-right"></i>
+                            </a>
+                          </div>
+                        )}
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </article>
             </div>
-            <Footer />
-        </Fragment>
-    );
-}
+            <div className="col-lg-4 col-12">
+              <aside>
+                <Search />
 
+                <PopularPost />
+
+                <Tags />
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Fragment>
+  );
+};
 export default BlogSingle;

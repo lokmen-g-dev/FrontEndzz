@@ -149,7 +149,7 @@ const Header = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/team" className={styles["nav-link"]}>
+                      <NavLink to="/session" className={styles["nav-link"]}>
                       Session Privée
                       </NavLink>
                     </li>

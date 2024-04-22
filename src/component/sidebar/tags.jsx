@@ -1,5 +1,5 @@
 
-const title = "Our Popular Tags";
+const title = "Mots-Clés";
 
 
 const tagsList = [

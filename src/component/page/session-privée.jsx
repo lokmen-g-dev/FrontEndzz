@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import axios from "axios"; 
 import Rating from "../sidebar/rating";
 
-const conSubTitle = "Devenez instructeur";
-const conTitle = "Remplissez le formulaire ci-dessous pour nous rejoindre.";
+const conSubTitle = "Session Privée";
+const conTitle = "Réservez Votre Session Privée.";
 const btnText = "Envoyer";
 
-
-const TeamPage = () => {
+const SessionPriveePage = () => {
     const [teamList, setTeamList] = useState([]);
     const [totalCourses, setTotalCourses] = useState(0);
     useEffect(() => {
@@ -46,24 +45,23 @@ const TeamPage = () => {
                 <div className="container">
                     <div className="section-wrapper">
                         <div className="row g-4 justify-content-center row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-                            {teamList.map((val, i) => (
+                        {teamList.map((val, i) => (
                                 <div className="col" key={i}>
                                     <div className="instructor-item">
                                         <div className="instructor-inner">
                                             <div className="instructor-thumb">
                                             <img src={`http://localhost:4000/uploads/trainer/${val.image}`} alt={val.imgAlt} style={{ height: '150px' , width: '150px' }}/>
-
                                             </div>
                                             <div className="instructor-content">
-                                                <Link to="/team-single"><h4>{val.name}</h4></Link>
-                                                <p>{val.formation}</p>
+                                            <Link to="/team-single"><h4>{val.name}</h4></Link>
+                                            <p>{val.formation}</p>
                                                 <Rating />
                                             </div>
                                         </div>
                                         <div className="instructor-footer">
                                             <ul className="lab-ul d-flex flex-wrap justify-content-between align-items-center">
-                                                <li><i className="icofont-book-alt"></i> {val.courses.length} cours</li>
-                                                <li> {val.studentAnroll}</li>
+                                            <li><i className="icofont-book-alt"></i> {val.courses.length} cours</li>
+                                                <li> {val.prixHeure} dt/Heure</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -78,12 +76,19 @@ const TeamPage = () => {
                         <h2 className="title">{conTitle}</h2>
                     </div>
                     <div className="section-wrapper">
-                        <form className="contact-form">
+                    <form className="contact-form">
                             <div className="form-group">
                                 <input
                                     type="text"
                                     name="name"
-                                    placeholder="Votre Nom et Prénom *"
+                                    placeholder="Votre Nom *"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="subject"
+                                    placeholder="Votre Prénom *"
                                 />
                             </div>
                             <div className="form-group">
@@ -100,18 +105,12 @@ const TeamPage = () => {
                                     placeholder="Votre Téléphone *"
                                 />
                             </div>
-                            <div className="form-group">
-                                <input
-                                    type="text"
-                                    name="subject"
-                                    placeholder="Votre Formation *"
-                                />
-                            </div>
+                           
                             <div className="form-group w-100">
                                 <textarea 
                                     rows="8" 
                                     type="text"
-                                    placeholder="Votre Expérience *"
+                                    placeholder="Votre Message"
                                 ></textarea>
                             </div>
                             <div className="form-group w-100 text-center">
@@ -129,4 +128,4 @@ const TeamPage = () => {
     );
 }
  
-export default TeamPage;
+export default SessionPriveePage;

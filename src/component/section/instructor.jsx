@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Rating from "../sidebar/rating";
-import axios from "axios"; // Importer axios pour effectuer des requêtes HTTP
+import axios from "axios"; 
 
 const subTitle = "Formateurs";
 const title = "Cours dispensés par des professionnels de renom";

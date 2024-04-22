@@ -1,45 +1,34 @@
-
+import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 
 const subTitle = "NOS ARTICLES DE BLOG";
 const title = "Plus d'articles de notre plateforme";
 
-
-const blogList = [
-    {
-        imgUrl: 'assets/images/blog/01.jpg',
-        imgAlt: 'blog thumb rajibraj91 rajibraj',
-        title: 'Scottish Creatives To Receive Funded Business.',
-        author: 'Begrass Tyson',
-        date: 'April 23,2022',
-        desc: 'Pluoresnts customize prancing apcentered customer service anding ands asing straelg Interacvely cordinate performe',
-        btnText: 'Read more',
-      
-    },
-    {
-        imgUrl: 'assets/images/blog/02.jpg',
-        imgAlt: 'blog thumb rajibraj91 rajibraj',
-        title: 'Scottish Creatives To Receive Funded Business.',
-        author: 'Begrass Tyson',
-        date: 'April 23,2022',
-        desc: 'Pluoresnts customize prancing apcentered customer service anding ands asing straelg Interacvely cordinate performe',
-        btnText: 'Read more',
-      
-    },
-    {
-        imgUrl: 'assets/images/blog/03.jpg',
-        imgAlt: 'blog thumb rajibraj91 rajibraj',
-        title: 'Scottish Creatives To Receive Funded Business.',
-        author: 'Begrass Tyson',
-        date: 'April 23,2022',
-        desc: 'Pluoresnts customize prancing apcentered customer service anding ands asing straelg Interacvely cordinate performe',
-        btnText: 'Read more',
-       
-    },
-]
-
 const Blog = () => {
+    const [blogList, setBlogList] = useState([]);
+    useEffect(() => {
+        const fetchBlogs = async () => {
+          try {
+            const response = await axios.get('http://localhost:4000/blog/blogs');
+            console.log(response.data);
+            setBlogList(response.data);
+          } catch (error) {
+            console.error('Erreur lors de la récupération des blogs :', error);
+          }
+        };
+    
+        fetchBlogs();
+      }, []);
+      const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      };
+      const lastThreeBlogs = blogList.slice(-3);
     return (
         <div className="blog-section padding-tb section-bg">
             <div className="container">
@@ -49,26 +38,26 @@ const Blog = () => {
                 </div>
                 <div className="section-wrapper">
                     <div className="row row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center g-4">
-                        {blogList.map((val, i) => (
+                    {lastThreeBlogs && lastThreeBlogs.map((val, i) => (
                             <div className="col" key={i}>
                                 <div className="post-item">
                                     <div className="post-inner">
                                         <div className="post-thumb">
-                                            <Link to="/blog-single"><img src={`${val.imgUrl}`} alt={`${val.imgAlt}`} /></Link>
+                                        <Link to={`/blog/${val._id}`}><img  src={`http://localhost:4000/uploads/blog/${val.image}`} alt={`${val.imgAlt}`} /></Link>
                                         </div>
                                         <div className="post-content">
-                                            <Link to="/blog-single"><h4>{val.title}</h4></Link>
+                                        <Link to={`/blog/${val._id}`}><h4>{val.titre}</h4></Link>
                                             <div className="meta-post">
                                                 <ul className="lab-ul">
-                                                    <li><i className="icofont-ui-user"></i>{val.author}</li>
-                                                    <li><i className="icofont-calendar"></i>{val.date}</li>
-                                                </ul>
+                                                <li><i className={'icofont-calendar'}></i>{new Intl.DateTimeFormat("fr-FR", options).format(
+                      new Date( val.dateCreation)
+                    )}</li>                                                </ul>
                                             </div>
-                                            <p>{val.desc}</p>
+                                            <p>{val.sousTitre}</p>
                                         </div>
                                         <div className="post-footer">
                                             <div className="pf-left">
-                                                <Link to="/blog-single" className="lab-btn-text">{val.btnText} <i className="icofont-external-link"></i></Link>
+                                            <Link to={`/blog/${val._id}`} className="lab-btn-text"> En savoir plus{" "} <i className="icofont-external-link"></i></Link>
                                             </div>
                                            
                                         </div>

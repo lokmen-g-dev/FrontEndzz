@@ -2,7 +2,7 @@
 import PriceSelect from "./price-select";
 import SelectLanguage from "./select-language";
 import SelectCatagory from "./selectCatagory";
-import SkillSelect from "./skill-select";
+
 
 
 
@@ -15,7 +15,7 @@ const GroupSelect = () => {
                         <div className="col-md-1">
                             <div className="group-select-left">
                                 <i className="icofont-abacus-alt"></i>
-                                <span>Filters</span>
+                                <span>Filtres</span>
                             </div>
                         </div>
                         <div className="col-md-11">
@@ -29,14 +29,7 @@ const GroupSelect = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col">
-                                        <div className="select-item">
-                                            <SelectLanguage select={'all'} />
-                                            <div className="select-icon">
-                                                <i className="icofont-rounded-down"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                     <div className="col">
                                         <div className="select-item">
                                             <PriceSelect select={'all'} />
@@ -45,14 +38,7 @@ const GroupSelect = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col">
-                                        <div className="select-item">
-                                            <SkillSelect select={'all'} />
-                                            <div className="select-icon">
-                                                <i className="icofont-rounded-down"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
